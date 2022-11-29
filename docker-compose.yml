@@ -1,0 +1,24 @@
+version: '3.9'
+
+networks:
+  app-network-public:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
+
+services:
+  db:
+    image: mongo:latest
+    container_name: db-mongo
+    networks:
+      - app-network-public
+    restart: always
+    env_file:
+      mongo.env
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+      - /c/DBLOCAL/mongo:/usr/data
